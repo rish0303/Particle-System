@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+Particle System/Particle System.vcxproj.user
+Particle System/.vs/
