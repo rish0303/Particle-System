@@ -23,13 +23,15 @@ void ParticleEmitter::Update(const float& dt)
 {
 	for (int i = 0; i < aliveParticles; ++i)
 	{
+		particleList[i]->Update(dt);
+
 		if (particleList[i]->duration <= 0)
 		{
 			delete particleList[i];
 			particleList[i] = nullptr;
 			--aliveParticles;
 
-			std::swap(particleList[i - 1], particleList[aliveParticles]);
+			std::swap(particleList[i], particleList[aliveParticles]);
 		}
 	}
 }

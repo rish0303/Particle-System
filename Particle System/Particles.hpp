@@ -18,6 +18,8 @@ class Particle
 		Particle(glm::vec2 position, glm::vec2 velocity, glm::vec4 RGBA, float duration);
 
 		void Update(const float& dt);
+
+		void Draw();
 };
 
 class ParticleEmitter

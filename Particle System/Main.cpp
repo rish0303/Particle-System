@@ -108,7 +108,7 @@ int main()
 	// create a translation matrix from the position
 	glm::mat4 translationMatrix = glm::translate(glm::vec3(0, 0, 0));
 	// create the transformation matrix by combining all three
-	glm::mat4 transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+	glm::mat4 transformMatrix;
 
 	GLint projectionLoc = glGetUniformLocation(shaderProgram.ID, "projection");
 	GLint viewLoc = glGetUniformLocation(shaderProgram.ID, "view");
@@ -128,12 +128,14 @@ int main()
 	double deltaTime;
 	unsigned int counter = 0;
 
+	glm::vec3 position = glm::vec3( 0, 0, 0 );
 
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
 		crntTime = glfwGetTime();
 		deltaTime = crntTime - prevTime;
+		prevTime = crntTime;
 		++counter;
 		if (deltaTime >= 1.0 / 30.0)
 		{
@@ -149,6 +151,9 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
 
+		position += glm::vec3(0, 20 * deltaTime, 0);
+		translationMatrix = glm::translate(position);
+		transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
 		// Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
 		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMatrix));
 		CheckError();
